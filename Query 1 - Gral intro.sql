@@ -113,10 +113,84 @@ SELECT order_id, o.customer_id, first_name, last_name
 FROM orders o
 JOIN customers c
 	ON o.customer_id = c.customer_id;
-*/    
+    
 
 -- JOINS ACROSS DIFFERENT DBs
 SELECT *
 FROM sql_store.order_items oi
 JOIN sql_inventory.products p
 	ON oi.product_id = p.product_id
+    
+-- SELF JOINS
+USE sql_hr;
+
+SELECT
+	e.employee_id,
+    e.first_name,
+    m.first_name
+FROM employees e
+JOIN employees m
+	ON e.reports_to = m.employee_id
+    
+
+-- JOIN MULTIPLE tables
+USE sql_store;
+
+SELECT
+	o.order_id,
+    o.order_date,
+    c.first_name,
+    os.name AS status
+FROM orders o
+JOIN customers c
+	ON o.customer_id = c.customer_id
+JOIN order_statuses os
+	ON o.status = os.order_status_id
+
+
+-- COMPOUND JOIN CONDITIONS
+-- use two or more cols to uniquely identify
+USE sql_store;
+
+SELECT *
+FROM order_items oi
+JOIN order_item_notes oin
+	ON oi.order_id = oin.order_Id
+    AND oi.product_id = oin.product_id
+    
+
+-- IMPLICIT JOINS (supported but NOT recommended, it coud lead
+-- accidentaly to a cross join!)
+SELECT *
+FROM orders o, customers c
+WHERE o.customer_id = c.customer_id;
+
+
+-- OUTER JOINS
+SELECT
+	c.customer_id,
+    c.first_name,
+    o.order_id
+FROM orders o
+-- Try to avoid RIGHT JOINS if it can be done with a LEFT JOIN
+RIGHT JOIN customers c
+	ON c.customer_id = o.customer_id
+ORDER BY c.customer_id
+ 
+ 
+ -- OUTER JOINS between multiple tables
+ SELECT
+	c.customer_id,
+    c.first_name,
+    o.order_id,
+    s.shipper_id
+FROM customers c
+LEFT JOIN orders o
+	ON c.customer_id = o.customer_id
+LEFT JOIN shippers s
+	ON o.shipper_id = s.shipper_id
+ORDER BY c.customer_id
+*/
+
+
+
