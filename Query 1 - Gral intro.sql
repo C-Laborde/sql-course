@@ -201,7 +201,7 @@ SELECT
 FROM employees e
 LEFT JOIN employees m
 	ON e.reports_to = m.employee_id
-*/
+
 
 -- USING clause
 SELECT
@@ -222,3 +222,15 @@ JOIN order_items_notes oin
 	-- ON oi.order_id = oin.order_id AND
 		-- oi.product_id = oin.product_id
 	JOIN (order_id, product_id)
+*/
+
+-- CROSS JOINS
+SELECT
+	c.first_name as customer,
+    p.name AS product
+-- explicit syntax
+FROM customers c
+CROSS JOIN products p
+-- implicit syntax
+-- FROM customers c, products p   /*less clear*/
+ORDER BY c.first_name

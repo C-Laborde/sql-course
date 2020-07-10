@@ -57,4 +57,14 @@ FROM payments p
 JOIN clients c
 	USING (client_id)
 JOIN payment_methods pm
-	ON p.payment_method = pm.payment_method_id
+	ON p.payment_method = pm.payment_method_id;
+
+
+-- CROSS JOINS
+USE sql_store;
+SELECT *
+-- implicit syntax
+-- FROM shippers s, products p
+-- explicit syntax
+FROM shippers s
+CROSS JOIN products p
