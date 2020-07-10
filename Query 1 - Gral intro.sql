@@ -190,7 +190,35 @@ LEFT JOIN orders o
 LEFT JOIN shippers s
 	ON o.shipper_id = s.shipper_id
 ORDER BY c.customer_id
+
+
+-- SELF OUTER JOINS
+USE sql_hr;
+SELECT
+	e.employee_id,
+    e.first_name,
+    m.first_name AS manager
+FROM employees e
+LEFT JOIN employees m
+	ON e.reports_to = m.employee_id
 */
 
+-- USING clause
+SELECT
+	o.order_id,
+    c.first_name,
+    s.name AS shipper
+FROM orders o
+JOIN customers c
+	-- ON o.customer_id = c.customer_id
+    -- replaces the above when the column names in both tables are equal
+    USING (customer_id)
+LEFT JOIN shippers s
+	USING (shipper_id)
 
-
+SELECT *
+FROM order_items oi
+JOIN order_items_notes oin
+	-- ON oi.order_id = oin.order_id AND
+		-- oi.product_id = oin.product_id
+	JOIN (order_id, product_id)
