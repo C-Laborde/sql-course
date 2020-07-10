@@ -104,4 +104,19 @@ SELECT *
 FROM customers
 -- the first number is an offset
 LIMIT 6, 3;
-*/
+
+
+
+-- ---- JOINS ----
+-- INNER JOIN on same DB
+SELECT order_id, o.customer_id, first_name, last_name
+FROM orders o
+JOIN customers c
+	ON o.customer_id = c.customer_id;
+*/    
+
+-- JOINS ACROSS DIFFERENT DBs
+SELECT *
+FROM sql_store.order_items oi
+JOIN sql_inventory.products p
+	ON oi.product_id = p.product_id
