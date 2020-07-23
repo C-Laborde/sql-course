@@ -68,3 +68,4 @@ SELECT *
 -- explicit syntax
 FROM shippers s
 CROSS JOIN products p
+ORDER BY s.name
