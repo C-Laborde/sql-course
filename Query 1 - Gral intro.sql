@@ -222,7 +222,7 @@ JOIN order_items_notes oin
 	-- ON oi.order_id = oin.order_id AND
 		-- oi.product_id = oin.product_id
 	JOIN (order_id, product_id)
-*/
+
 
 -- CROSS JOINS
 SELECT
@@ -232,5 +232,13 @@ SELECT
 FROM customers c
 CROSS JOIN products p
 -- implicit syntax
--- FROM customers c, products p   /*less clear*/
+-- FROM customers c, products p   -- less clear
 ORDER BY c.first_name
+*/
+
+-- UNIONS
+SELECT first_name
+FROM customers
+UNION
+SELECT name
+FROM shippers
