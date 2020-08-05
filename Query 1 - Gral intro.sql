@@ -234,7 +234,7 @@ CROSS JOIN products p
 -- implicit syntax
 -- FROM customers c, products p   -- less clear
 ORDER BY c.first_name
-*/
+
 
 -- UNIONS
 SELECT first_name
@@ -242,3 +242,17 @@ FROM customers
 UNION
 SELECT name
 FROM shippers
+*/
+
+-- AGGREGATE FUNCTIONS
+USE sql_invoicing;
+SELECT  
+	MAX(invoice_total) AS highest,
+    MIN(invoice_total) AS lowest,
+    AVG(invoice_total) AS average,
+    SUM(invoice_total * 1.1) AS total,
+    -- (*) to count also nulls
+    COUNT(*) AS total_records,
+    COUNT(DISTINCT client_id) AS total_clients
+FROM invoices
+WHERE invoice_date > "2019-07=01"
