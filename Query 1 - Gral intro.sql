@@ -2,6 +2,7 @@
 SELECT
 FROM
 WHERE
+GROUP
 ORDER BY
 LIMIT
 */
@@ -242,7 +243,7 @@ FROM customers
 UNION
 SELECT name
 FROM shippers
-*/
+
 
 -- AGGREGATE FUNCTIONS
 USE sql_invoicing;
@@ -256,3 +257,16 @@ SELECT
     COUNT(DISTINCT client_id) AS total_clients
 FROM invoices
 WHERE invoice_date > "2019-07=01"
+*/
+
+-- GROUP BY
+USE sql_invoicing;
+SELECT
+	state,
+    city,
+	SUM(invoice_total) AS total_sales
+FROM invoices i
+JOIN clients USING (client_id)
+WHERE invoice_date >= "2019-07-01"
+GROUP BY state, city
+ORDER BY total_sales DESC
