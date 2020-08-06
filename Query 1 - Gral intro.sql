@@ -257,7 +257,7 @@ SELECT
     COUNT(DISTINCT client_id) AS total_clients
 FROM invoices
 WHERE invoice_date > "2019-07=01"
-*/
+
 
 -- GROUP BY
 USE sql_invoicing;
@@ -270,3 +270,14 @@ JOIN clients USING (client_id)
 WHERE invoice_date >= "2019-07-01"
 GROUP BY state, city
 ORDER BY total_sales DESC
+*/
+
+-- HAVING (to filter after data has been grouped)
+-- with HAVING you have to use columns that are SELECTED
+USE sql_invoicing;
+SELECT
+	client_id,
+    SUM(invoice_total) AS total_sales
+FROM invoices
+GROUP BY client_id
+HAVING total_sales > 500
