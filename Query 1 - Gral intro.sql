@@ -8,9 +8,10 @@ LIMIT
 */
 
 
+/*
+
 USE sql_store;
 
-/*
 SELECT
 	--  use * to select all columns
     -- AS to define an alias
@@ -270,14 +271,26 @@ JOIN clients USING (client_id)
 WHERE invoice_date >= "2019-07-01"
 GROUP BY state, city
 ORDER BY total_sales DESC
-*/
+
 
 -- HAVING (to filter after data has been grouped)
 -- with HAVING you have to use columns that are SELECTED
-USE sql_invoicing;
+USE sql_store;
 SELECT
-	client_id,
+	customer_id,
     SUM(invoice_total) AS total_sales
 FROM invoices
 GROUP BY client_id
 HAVING total_sales > 500
+*/
+
+-- ROLLUP (only appliest to columns that aggregate values)
+-- ROLLUP only available in MYSQL!! look for similar in other workbenches
+SELECT
+	state,
+    city,
+    SUM(invoice_total) AS total_sales
+FROM invoices i
+JOIN clients c USING(client_id)
+GROUP BY state, city WITH ROLLUP
+    
