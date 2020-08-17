@@ -296,4 +296,21 @@ JOIN clients c USING(client_id)
 GROUP BY state, city WITH ROLLUP
 */
 
+-- ALL operator, exchangeable whwn you use MAX
+-- Select invoices larger than all invoiced of client 3
+SELECT *
+FROM invoice
+WHERE invoice_total > (
+	SELECT MAX(invoice_total)
+    FROM invoices
+    WHERE client_id = 3
+);
 
+-- OR
+SELECT *
+FROM invoices
+WHERE invoice_total > ALL (
+	SELECT invoice_total
+    FROM invoices
+    WHERE client_id = 3
+)
