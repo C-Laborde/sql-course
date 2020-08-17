@@ -282,10 +282,11 @@ SELECT
 FROM invoices
 GROUP BY client_id
 HAVING total_sales > 500
-*/
 
--- ROLLUP (only appliest to columns that aggregate values)
+
+-- ROLLUP (only applies to columns that aggregate values)
 -- ROLLUP only available in MYSQL!! look for similar in other workbenches
+-- Summarizes the aggregate (total)
 SELECT
 	state,
     city,
@@ -293,4 +294,6 @@ SELECT
 FROM invoices i
 JOIN clients c USING(client_id)
 GROUP BY state, city WITH ROLLUP
-    
+*/
+
+
