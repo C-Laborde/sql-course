@@ -296,7 +296,7 @@ JOIN clients c USING(client_id)
 GROUP BY state, city WITH ROLLUP
 */
 
--- ALL operator, exchangeable whwn you use MAX
+-- ALL operator, exchangeable when you use MAX
 -- Select invoices larger than all invoiced of client 3
 SELECT *
 FROM invoice
@@ -314,3 +314,6 @@ WHERE invoice_total > ALL (
     FROM invoices
     WHERE client_id = 3
 )
+
+
+-- = ANY() operator, equal to IN
