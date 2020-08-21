@@ -46,5 +46,39 @@ SELECT DISTINCT c.customer_id, c.first_name, c.last_name
 FROM order_items oi
 JOIN orders o USING(order_id)
 JOIN customers c USING(customer_id)
-WHERE oi.product_id = 3
+WHERE oi.product_id = 3;
+
+
+-- Select employees whose salary is above the average in their office
+USE sql_hr;
+SELECT *
+FROM employees e
+JOIN (
+	SELECT office_id, AVG(salary) AS "avg_salary"
+	FROM employees
+	GROUP BY office_id) AS avg_salary
+    ON avg_salary.office_id = e.office_id
+WHERE salary > avg_salary;
+
+-- ANOTHER WAY: CORRELATED SUBQUERIES (subquery correlated with the outer
+-- query). The subquery gets executed for each row in the outer query so they
+-- can be very slow.
+SELECT *
+FROM employees e
+WHERE salary > (
+	SELECT AVG(salary)
+    FROM employees
+	WHERE office_id = e.office_id
+)
 */
+
+-- Get invoices that are larger than the client's average invoice amount
+USE sql_invoicing;
+SELECT *
+FROM invoices i
+WHERE invoice_total > (
+	SELECT AVG(invoice_total)
+    FROM invoices
+    WHERE client_id = i.client_id
+)
+
