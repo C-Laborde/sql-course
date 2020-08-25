@@ -80,7 +80,7 @@ WHERE invoice_total > (
 	SELECT AVG(invoice_total)
     FROM invoices
     WHERE client_id = i.client_id
-)*/
+)
 
 
 -- Find the products that have never been ordered
@@ -91,4 +91,20 @@ WHERE NOT EXISTS (
 	SELECT oi.product_id
     FROM order_items oi
     WHERE oi.product_id = p.product_id
-    )
+    );
+ */   
+
+-- Write a query to return client_id, name, total_sales, average sales
+-- and difference between total_sales and average_sales
+SELECT
+	client_id,
+    name,
+    (SELECT
+		SUM(invoice_total)
+	FROM invoices
+	WHERE client_id = c.client_id) AS total_sales,
+    (SELECT
+		AVG(invoice_total)
+	FROM invoices) AS average,
+    (SELECT total_sales - average)
+FROM clients c

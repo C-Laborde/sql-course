@@ -314,7 +314,7 @@ WHERE invoice_total > ALL (
     FROM invoices
     WHERE client_id = 3
 );
-*/
+
 
 -- = ANY() operator, equal to IN
 
@@ -326,4 +326,16 @@ WHERE EXISTS(
 	SELECT client_id
     FROM invoices
     WHERE client_id = c.client_id
-)
+);
+*/
+
+-- Subqueries in the SELECT Clause
+USE sql_invoicing;
+SELECT 
+	invoice_id,
+    invoice_total,
+    (SELECT 
+		AVG(invoice_total)
+	FROM invoices) AS invoice_average,
+	invoice_total - (SELECT invoice_average) AS difference
+FROM invoices
