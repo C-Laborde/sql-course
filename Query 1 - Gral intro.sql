@@ -294,7 +294,7 @@ SELECT
 FROM invoices i
 JOIN clients c USING(client_id)
 GROUP BY state, city WITH ROLLUP
-*/
+
 
 -- ALL operator, exchangeable when you use MAX
 -- Select invoices larger than all invoiced of client 3
@@ -313,7 +313,17 @@ WHERE invoice_total > ALL (
 	SELECT invoice_total
     FROM invoices
     WHERE client_id = 3
-)
-
+);
+*/
 
 -- = ANY() operator, equal to IN
+
+-- EXISTS operator
+-- More efficient than a subquery if it produces a large number of results
+SELECT *
+FROM clients c
+WHERE EXISTS(
+	SELECT client_id
+    FROM invoices
+    WHERE client_id = c.client_id
+)

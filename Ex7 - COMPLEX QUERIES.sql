@@ -70,7 +70,7 @@ WHERE salary > (
     FROM employees
 	WHERE office_id = e.office_id
 )
-*/
+
 
 -- Get invoices that are larger than the client's average invoice amount
 USE sql_invoicing;
@@ -80,5 +80,15 @@ WHERE invoice_total > (
 	SELECT AVG(invoice_total)
     FROM invoices
     WHERE client_id = i.client_id
-)
+)*/
 
+
+-- Find the products that have never been ordered
+USE sql_store;
+SELECT *
+FROM products p
+WHERE NOT EXISTS (
+	SELECT oi.product_id
+    FROM order_items oi
+    WHERE oi.product_id = p.product_id
+    )
