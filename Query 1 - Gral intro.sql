@@ -327,7 +327,7 @@ WHERE EXISTS(
     FROM invoices
     WHERE client_id = c.client_id
 );
-*/
+
 
 -- Subqueries in the SELECT Clause
 USE sql_invoicing;
@@ -339,3 +339,12 @@ SELECT
 	FROM invoices) AS invoice_average,
 	invoice_total - (SELECT invoice_average) AS difference
 FROM invoices
+*/
+
+-- DATE BUILT IN functions
+-- EXTRACT(YEAR FROM date_field)
+-- DATE_FORMAT(date_value, "%Y")
+-- DATE_ADD(date_value, INTERVAL 1 YEAR)
+-- DATE_SUB(date_value, INTERVAL 1 YEAR)
+-- DATEDIFF(date_value1, date_value2)  always returns days
+-- TIME_TO_SEC(time_value) returns seconds from midnight
