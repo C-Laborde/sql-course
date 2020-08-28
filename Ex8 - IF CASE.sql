@@ -1,4 +1,4 @@
-/*SELECT 
+SELECT 
 	CONCAT(c.first_name, " ", c.last_name) AS "customer",
     IFNULL(phone, "Unknown") AS "phone"
 FROM customers c;
@@ -12,7 +12,7 @@ SELECT
 FROM order_items oi
 LEFT JOIN products p USING(product_id)
 GROUP BY p.product_id, p.name;
-*/
+
 
 SELECT
 	CONCAT(c.first_name, " ", c.last_name) AS customer,
