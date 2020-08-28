@@ -19,8 +19,8 @@ SELECT
     c.points,
 	CASE
 		WHEN c.points > 3000 THEN "Gold"
-        WHEN c.points BETWEEN 2000 AND 3000 THEN "Silver"
-        WHEN c.points < 2000 THEN "Bronze"
+        WHEN c.points >= 2000 THEN "Silver"
+        ELSE "Bronze"
 	END AS "Category"
 FROM customers c
 ORDER BY points DESC
