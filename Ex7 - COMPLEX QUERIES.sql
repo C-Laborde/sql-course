@@ -92,10 +92,11 @@ WHERE NOT EXISTS (
     FROM order_items oi
     WHERE oi.product_id = p.product_id
     );
- */   
+    
 
 -- Write a query to return client_id, name, total_sales, average sales
 -- and difference between total_sales and average_sales
+USE sql_invoicing;
 SELECT
 	client_id,
     name,
@@ -108,3 +109,4 @@ SELECT
 	FROM invoices) AS average,
     (SELECT total_sales - average)
 FROM clients c
+*/
